@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3315,8 +3315,8 @@ MonoBehaviour:
   m_text: "Comme indiqu\xE9 dans la polycopie, la limite de Roche peut avoir plusieurs
     valeurs, en fonction du degr\xE9 de compressibilit\xE9 d'un corps en orbite sous
     l'effet des forces de mar\xE9e due \xE0 la plan\xE8te h\xF4te. Les deux cas limites
-    d'un corps rigide id\xE9al et d'un corps fluide id\xE9al forment une bande dans
-    laquelle les objets r\xE9els se brisent."
+    d'un corps <i>rigide</i> id\xE9al et d'un corps <i>fluide</i> id\xE9al forment
+    une bande dans laquelle les objets r\xE9els se brisent."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 350cfcf20da78478f9197161ac83b480, type: 2}
   m_sharedMaterial: {fileID: -1129015340585624399, guid: 350cfcf20da78478f9197161ac83b480,
@@ -4921,7 +4921,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 96.8, y: 0}
+  m_SizeDelta: {x: 97.1, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &763403046
 MonoBehaviour:
@@ -5670,7 +5670,7 @@ MonoBehaviour:
   unitMass: 1
   unitTime: 2
   timeScale: 0.1
-  numParticles: 4000
+  numParticles: 2000
   primaryRadius: 3
   ringRadius: 5
   ringDispersion: 0.5
@@ -7222,7 +7222,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pourquoi certaines plan\xE8tes ont-elles des anneaux alors que d'autres
     n'en ont pas ? La r\xE9ponse est li\xE9e aux forces de mar\xE9e et \xE0 une distance
-    orbitale caract\xE9ristique appel\xE9e la limite de Roche."
+    orbitale caract\xE9ristique appel\xE9e la <i>limite de Roche</i>."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 350cfcf20da78478f9197161ac83b480, type: 2}
   m_sharedMaterial: {fileID: -1129015340585624399, guid: 350cfcf20da78478f9197161ac83b480,
@@ -9798,7 +9798,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -193.6, y: 38.2}
+  m_SizeDelta: {x: -194.19998, y: 38.2}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1506623443
 MonoBehaviour:
@@ -11344,9 +11344,9 @@ MonoBehaviour:
   earthRadius: 4
   earthIsRotating: 0
   lunarDistance: 14
-  numParticles: 2000
+  numParticles: 1500
   particleRadius: 0.08
-  numSubsteps: 10
+  numSubsteps: 8
   moonIsSolid: 1
   kxz: 0
   ky: 0.1
@@ -11600,7 +11600,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 96.79999, y: 0}
+  m_SizeDelta: {x: 97.1, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1835980359
 MonoBehaviour:
@@ -12031,8 +12031,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -193.6, y: 98.2}
+  m_AnchoredPosition: {x: 0.00018310547, y: 0}
+  m_SizeDelta: {x: -194.19962, y: 98.2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1964853458
 MonoBehaviour:
@@ -16994,7 +16994,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8846061117677986660}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
