@@ -60,3 +60,9 @@ crashlytics-build.properties
 
 # OSX
 .DS_Store
+
+# Custom
+/Assets/[Tt]esting*
+/Assets/Scenes/Testing*
+/Assets/Scenes/Equations*
+/Assets/Scenes/Annulus*

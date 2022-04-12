@@ -7,6 +7,7 @@ public class TidalDistortionSlideController : SimulationSlideController
 
     [SerializeField] private bool useLights = true;
     [SerializeField] private bool rocheLimit = true;
+    [SerializeField] private FadeOutUI instructions;
 
     private void Awake()
     {
@@ -26,5 +27,19 @@ public class TidalDistortionSlideController : SimulationSlideController
 
         prefabs.SetLightsVisibility(useLights);
         prefabs.SetRocheLimitVisibility(rocheLimit);
+
+        if (instructions)
+        {
+            instructions.SetAlpha(0);
+            instructions.TriggerFadeIn();
+        }
+    }
+
+    public void OnEquationClicked()
+    {
+        if (instructions)
+        {
+            instructions.TriggerFadeOut();
+        }
     }
 }
