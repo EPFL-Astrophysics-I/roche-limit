@@ -192,10 +192,14 @@ public class SlideManager : MonoBehaviour
 
     public void HandleThemeChange(Color backgroundColor)
     {
-        // Let LanguageToggle know to invert color theme
-        if (backgroundColor == Color.white || backgroundColor == Color.black)
+        if (backgroundColor == Color.white)
         {
-            BroadcastMessage("InvertColors", SendMessageOptions.DontRequireReceiver);
+            BroadcastMessage("SetLightTheme", SendMessageOptions.DontRequireReceiver);
+        }
+
+        if (backgroundColor == Color.black)
+        {
+            BroadcastMessage("SetDarkTheme", SendMessageOptions.DontRequireReceiver);
         }
     }
 }

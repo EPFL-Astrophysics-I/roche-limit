@@ -24,18 +24,16 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minZoom = 5;
     [SerializeField] private float maxZoom = 50;
 
-    [SerializeField] private AnimationCurve rotationCurve = default;
+    [SerializeField] private AnimationCurve rotationCurve;
 
     private Camera mainCamera;
     private Coroutine cameraMoving;
     private Coroutine cameraChangingColor;
 
     private bool clickedOnUIElement;
-    private Vector3 mouseStartPosition = Vector3.zero;
+    private Vector3 mouseStartPosition;
     private Vector3 cameraStartPosition;
     private Quaternion cameraStartRotation;
-
-    private bool cameraHasRotated;
 
     public void AssignCameraReference(Camera camera)
     {
@@ -55,7 +53,6 @@ public class CameraController : MonoBehaviour
             StopCoroutine(cameraChangingColor);
         }
         mainCamera = null;
-        cameraHasRotated = false;
     }
 
     // For zooming in and out
@@ -104,13 +101,6 @@ public class CameraController : MonoBehaviour
             clickedOnUIElement = EventSystem.current.IsPointerOverGameObject();
         }
 
-        // HACK Do not allow any action if mouse start position has not been set by a user click
-        // Otherwise strange behavior happens trying to rotate too soon when loading a slide
-        if (mouseStartPosition == Vector3.zero)
-        {
-            return;
-        }
-
         if (Input.GetMouseButton(0) && !clickedOnUIElement)
         {
             Vector3 axis = Vector3.zero;
@@ -131,15 +121,9 @@ public class CameraController : MonoBehaviour
             mainCamera.transform.SetPositionAndRotation(newPosition, newRotation);
         }
 
-        if (Input.GetMouseButtonUp(0) && !clickedOnUIElement)
+        if (Input.GetMouseButtonUp(0))
         {
             clickedOnUIElement = false;
-
-            if (!cameraHasRotated)
-            {
-                cameraHasRotated = true;
-                BroadcastMessage("HandleCameraHasRotated", SendMessageOptions.DontRequireReceiver);
-            }
         }
     }
 
@@ -150,11 +134,13 @@ public class CameraController : MonoBehaviour
 
     public void InitializeCamera()
     {
-        if (mainCamera.backgroundColor != backgroundColor)
+        if (!CompareRGB(mainCamera.backgroundColor, backgroundColor))
         {
             cameraChangingColor = StartCoroutine(LerpBackgroundColor(backgroundColor, colorTransitionTime));
-            SendMessageUpwards("HandleThemeChange", backgroundColor, SendMessageOptions.DontRequireReceiver);
         }
+
+        // Let SlideManager know the slide's background color to trigger LanguageToggle
+        SendMessageUpwards("HandleThemeChange", backgroundColor, SendMessageOptions.DontRequireReceiver);
 
         // Always put the camera in perspective mode when moving
         mainCamera.orthographic = false;
@@ -212,5 +198,10 @@ public class CameraController : MonoBehaviour
         }
 
         mainCamera.backgroundColor = targetColor;
+    }
+
+    private bool CompareRGB(Color color1, Color color2)
+    {
+        return (color1.r == color2.r) && (color1.g == color2.g) && (color1.b == color2.b);
     }
 }

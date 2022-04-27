@@ -4,38 +4,42 @@ using UnityEngine.EventSystems;
 
 public class LanguageToggle : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private Color activeColor = Color.black;
-    [SerializeField] private Color inactiveColor = Color.gray;
     [SerializeField] private TextMeshProUGUI labelEN = default;
     [SerializeField] private TextMeshProUGUI labelFR = default;
+
+    [Header("Light Theme")]
+    [SerializeField] private Color lightActiveColor = Color.black;
+    [SerializeField] private Color lightInactiveColor = Color.gray;
+
+    [Header("Dark Theme")]
+    [SerializeField] private Color darkActiveColor = Color.gray;
+    [SerializeField] private Color darkInactiveColor = Color.black;
 
     public enum ActiveLanguage { EN, FR }
     private ActiveLanguage activeLanguage = ActiveLanguage.EN;
     private bool canToggle = true;
 
+    private Color active;
+    private Color inactive;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        ToggleLanguageDisplay();
-        SendMessageUpwards("SetLanguage", activeLanguage.ToString(), SendMessageOptions.DontRequireReceiver);
+        if (canToggle)
+        {
+            ToggleLanguageDisplay();
+            SendMessageUpwards("SetLanguage", activeLanguage.ToString(), SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     private void Awake()
     {
-        if (labelEN != null)
-        {
-            labelEN.color = activeColor;
-        }
-        else
+        if (!labelEN)
         {
             Debug.LogWarning("Need to assign EN TMP");
             canToggle = false;
         }
 
-        if (labelFR != null)
-        {
-            labelFR.color = inactiveColor;
-        }
-        else
+        if (!labelFR)
         {
             Debug.LogWarning("Need to assign FR TMP");
             canToggle = false;
@@ -44,40 +48,45 @@ public class LanguageToggle : MonoBehaviour, IPointerClickHandler
 
     private void ToggleLanguageDisplay()
     {
-        if (!canToggle)
-        {
-            return;
-        }
-
         if (activeLanguage == ActiveLanguage.EN)
         {
-            labelEN.color = inactiveColor;
-            labelFR.color = activeColor;
+            labelEN.color = inactive;
+            labelFR.color = active;
             activeLanguage = ActiveLanguage.FR;
         }
         else
         {
-            labelEN.color = activeColor;
-            labelFR.color = inactiveColor;
+            labelEN.color = active;
+            labelFR.color = inactive;
             activeLanguage = ActiveLanguage.EN;
         }
     }
 
-    public void InvertColors()
+    private void SetLanguageDisplay()
     {
-        Color tmp = activeColor;
-        activeColor = inactiveColor;
-        inactiveColor = tmp;
-
         if (activeLanguage == ActiveLanguage.EN)
         {
-            labelEN.color = activeColor;
-            labelFR.color = inactiveColor;
+            labelEN.color = active;
+            labelFR.color = inactive;
         }
         else
         {
-            labelEN.color = inactiveColor;
-            labelFR.color = activeColor;
+            labelEN.color = inactive;
+            labelFR.color = active;
         }
+    }
+
+    public void SetLightTheme()
+    {
+        active = lightActiveColor;
+        inactive = lightInactiveColor;
+        SetLanguageDisplay();
+    }
+
+    public void SetDarkTheme()
+    {
+        active = darkActiveColor;
+        inactive = darkInactiveColor;
+        SetLanguageDisplay();
     }
 }
